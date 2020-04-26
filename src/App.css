@@ -1,0 +1,29 @@
+.App {
+    text-align: center;
+    background: rgb(230,230,230);
+  }
+
+.Form_style {
+  height: 120px;
+  width: 150px;
+  text-align: center;
+  margin-top: 30px;
+  margin-left: 42%;
+  font-size: 10px;
+}
+
+.Input_style {
+  text-align: center;
+  height: 30px;
+  font-size: 20px;
+  width: 100%;
+  margin-left: 15%;
+}
+
+.Button_style {
+  text-align: center;
+  margin-top: 10px;
+  height: 40px;
+  width: 80%;
+  margin-left: 26%;
+}

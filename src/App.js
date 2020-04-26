@@ -1,5 +1,7 @@
 import React from 'react';
-import Form from "./components/Form"
+import Form from "./components/Form";
+import Repos from "./components/Repos";
+import './App.css';
 
 class App extends React.Component {
   state = {
@@ -12,19 +14,22 @@ class App extends React.Component {
     if (username) {
       const api_call = await fetch(`https://api.github.com/users/${username}/repos?type=public`);
       const data = await api_call.json();
+
       let repositories = data.map(repo => {
-        let repos = {
-          repository_name: undefined,
-          description: undefined,
-          created_at: undefined,
-        }
-        repos.repository_name = repo.name
-        repos.description = repo.description
-        repos.created_at = repo.created_at
-        return repos;
+        return {
+          repository_name: repo.name,
+          description: repo.description,
+          created_at: new Date(repo.created_at)
+        };
       });
+
+      repositories.sort((a,b) => a.created_at - b.created_at);
+      repositories.forEach(element => {
+        element.created_at = element.created_at.toString();
+      });
+
       this.setState({
-        repositories: repositories,
+        repositories: repositories.reverse(),
         error: ""
       });
     } else {
@@ -33,13 +38,17 @@ class App extends React.Component {
         error: "Please enter the username"
       });
     }
-
+  console.log(this.state);
   }
+
   render() {
     return (
-      <div>
-        <div>
+      <div className="App">
+        <div className="Form_style">
           <Form getRepo={this.getRepo} error={this.state.error} />
+        </div>
+        <div>
+          <Repos repositories={this.state.repositories} error={this.state.error} />
         </div>
       </div>
     )

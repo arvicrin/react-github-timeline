@@ -1,24 +1,47 @@
 import React from "react";
 
-const Repos = props => {
+class Repos extends React.Component {
+    position = undefined;
+    left_right = (i) => {
+        let position = "";
+        if (i % 2 === 0) {
+            position = "direction-r";
+        }
+        else {
+            position = "direction-l";
+        }
+        this.position = position;
+        console.log(position);
+    }
+    render() {
     return (
-        <div className="Repos_style">
+        <ul className="timeline">
             {
-                props.repositories && props.repositories.map((repo , i) =>
-                     <p key={i}>
-                         Repository name: {repo.repository_name}<br />
-                         Description: {repo.description}<br />
-                         Created at: {repo.created_at}<br />
-                    </p>
+                this.props.repositories && this.props.repositories.map((repo , i) =>
+                    <li key={i}>
+                        {this.left_right(i)}
+                        <div className={this.position}>
+                            <div className="flag-wrapper">
+                                <span className="flag">{repo.repository_name}</span>
+                                <span className="time-wrapper"><span className="time">{repo.created_at}</span></span>
+                            </div>
+                            <div className="desc">{repo.description}</div>
+                        </div>
+                    </li>
                 )
             }
             {
-                props.error && <p>
-                    {props.error}
+                this.props.error && <p>
+                    {this.props.error}
                 </p>
             }
-        </div>
+            {
+                !this.props.error && !this.props.repositories && <li>
+                    Please write a user github name
+                </li>
+            }
+        </ul>
     );
 }
-
+}
 export default Repos;

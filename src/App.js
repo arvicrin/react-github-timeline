@@ -44,12 +44,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <div><h1>Repositories Github Timeline</h1></div>
         <div className="Form_style">
-          <Form getRepo={this.getRepo} error={this.state.error} />
+            <Form getRepo={this.getRepo} error={this.state.error} />
         </div>
-        <div>
+        { this.state.repositories && <div>
           <Repos repositories={this.state.repositories} error={this.state.error} />
-        </div>
+        </div>}
       </div>
     )
   }
